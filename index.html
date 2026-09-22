@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>田田英语-少儿英语启蒙与趣味互动学习平台</title>
+    <meta name="description" content="田田英语专注于3-12岁少儿英语启蒙教育，提供生动有趣的英语儿歌、绘本阅读、日常对话及趣味互动课程，帮助孩子在轻松愉快的氛围中掌握英语核心词汇与基础语法，培养纯正英语语感。">
+    <meta name="keywords" content="田田英语,少儿英语启蒙,儿童英语学习,英语儿歌,英语绘本,英语动画,趣味英语">
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #FF9A9E;
+            --primary-dark: #F67075;
+            --secondary-color: #FFD194;
+            --text-main: #2C3E50;
+            --text-light: #7F8C8D;
+            --bg-light: #FFF5F7;
+            --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(255, 154, 158, 0.15);
+            --radius: 16px;
+            --container-width: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-main);
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-dark);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(246, 112, 117, 0.4);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(246, 112, 117, 0.6);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(180deg, #FFF5F7 0%, #FFFFFF 100%);
+            display: flex;
+            align-items: center;
+            min-height: 500px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .hero-text h1 span {
+            color: var(--primary-dark);
+            position: relative;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-dark);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: var(--radius);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: var(--primary-dark);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* Course Categories */
+        .courses {
+            padding: 80px 0;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .course-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .course-img {
+            height: 200px;
+            background-color: #eee;
+            position: relative;
+        }
+
+        .course-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .course-content {
+            padding: 25px;
+        }
+
+        .course-tag {
+            color: var(--primary-color);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .course-content h3 {
+            font-size: 20px;
+            margin: 10px 0;
+            color: var(--text-main);
+        }
+
+        .course-content p {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .student-count {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Interactive Section */
+        .interactive {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .interactive-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .interactive-content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .interactive-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .check-icon {
+            min-width: 24px;
+            height: 24px;
+            background: #E8F8F5;
+            color: #2ECC71;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .interactive-card {
+            background: #FFF5F7;
+            padding: 40px;
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .interactive-card h4 {
+            font-size: 24px;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .interactive-card p {
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .faq-grid {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 20px;
+            color: var(--text-light);
+            font-size: 15px;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding-bottom: 20px;
+        }
+
+        .faq-item.active .faq-question {
+            color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: #2C3E50;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-info h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .footer-info p {
+            color: #BDC3C7;
+            font-size: 14px;
+            max-width: 300px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #BDC3C7;
+            font-size: 14px;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            color: #7F8C8D;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content, .interactive-wrapper {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 36px;
+            }
+
+            .hero-text p {
+                margin: 0 auto 30px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .course-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#FF9A9E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="#FF9A9E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="#FF9A9E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                田田英语
+            </a>
+            <nav class="nav-links">
+                <a href="#" class="active">首页</a>
+                <a href="#">儿歌动画</a>
+                <a href="#">绘本阅读</a>
+                <a href="#">趣味课程</a>
+                <a href="#">家长指南</a>
+            </nav>
+            <a href="#" class="cta-btn">免费试听</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>让孩子在快乐中<br><span>爱上英语</span></h1>
+                    <p>田田英语通过原创英语儿歌、互动绘本和趣味动画，为孩子打造沉浸式英语学习环境。告别枯燥，开启孩子的英语启蒙之旅。</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="cta-btn">开始学习</a>
+                        <a href="#" class="btn-outline">了解课程</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://picsum.photos/seed/kidslearning/600/400" alt="小朋友快乐学习英语">
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2>为什么选择田田英语</h2>
+                    <p>专为3-12岁儿童设计的英语启蒙方案</p>
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon-box">🎵</div>
+                        <h3>趣味儿歌</h3>
+                        <p>精选高频词汇，搭配欢快旋律，让单词记忆更牢固。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon-box">📖</div>
+                        <h3>互动绘本</h3>
+                        <p>点击式阅读体验，跟随角色探索故事，提升阅读兴趣。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon-box">🎬</div>
+                        <h3>情景动画</h3>
+                        <p>还原真实生活场景，帮助孩子理解语言背后的文化。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon-box">🏆</div>
+                        <h3>积分奖励</h3>
+                        <p>游戏化学习机制，鼓励孩子坚持打卡，养成良好习惯。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses -->
+        <section class="courses">
+            <div class="container">
+                <div class="section-header">
+                    <h2>热门学习模块</h2>
+                    <p>分龄分级，精准匹配孩子成长需求</p>
+                </div>
+                <div class="course-grid">
+                    <article class="course-card">
+                        <div class="course-img">
+                            <img src="https://picsum.photos/seed/songs/400/250" alt="英语启蒙儿歌">
+                            <span class="badge">人气TOP1</span>
+                        </div>
+                        <div class="course-content">
+                            <span class="course-tag">儿歌</span>
+                            <h3>快乐单词歌谣</h3>
+                            <p>包含颜色、数字、动物等50首经典儿歌，配合动作教学，适合零基础入门。</p>
+                            <div class="course-meta">
+                                <span class="student-count">👨‍👩‍👧‍👦 10万+家长选择</span>
+                                <span>免费</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="course-card">
+                        <div class="course-img">
+                            <img src="https://picsum.photos/seed/books/400/250" alt="英语绘本">
+                        </div>
+                        <div class="course-content">
+                            <span class="course-tag">绘本</span>
+                            <h3>经典童话改编</h3>
+                            <p>将经典英文绘本转化为互动故事，支持中英双语对照，培养阅读语感。</p>
+                            <div class="course-meta">
+                                <span class="student-count">📚 200+本精选</span>
+                                <span>会员专享</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="course-card">
+                        <div class="course-img">
+                            <img src="https://picsum.photos/seed/speaking/400/250" alt="口语对话">
+                        </div>
+                        <div class="course-content">
+                            <span class="course-tag">口语</span>
+                            <h3>日常情景对话</h3>
+                            <p>模拟餐厅、超市、学校等生活场景，通过角色扮演练习地道表达。</p>
+                            <div class="course-meta">
+                                <span class="student-count">🗣️ 沉浸式体验</span>
+                                <span>新课</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Section -->
+        <section class="interactive">
+            <div class="container interactive-wrapper">
+                <div class="interactive-content">
+                    <h2>不仅仅是学习，更是陪伴</h2>
+                    <p style="margin-bottom: 30px; color: var(--text-light);">田田英语采用科学的教学体系，结合儿童心理发展特点，让英语学习变得像玩游戏一样简单。</p>
+                    <ul class="interactive-list">
+                        <li>
+                            <div class="check-icon">✓</div>
+                            <div>
+                                <h4>科学分阶体系</h4>
+                                <p style="font-size: 13px; color: #7F8C8D;">根据CEFR标准，将内容划分为L1-L6六个等级，循序渐进。</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="check-icon">✓</div>
+                            <div>
+                                <h4>纯正美式发音</h4>
+                                <p style="font-size: 13px; color: #7F8C8D;">由专业外教团队录制，发音清晰标准，纠正孩子发音习惯。</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="check-icon">✓</div>
+                            <div>
+                                <h4>家长学习报告</h4>
+                                <p style="font-size: 13px; color: #7F8C8D;">定期生成学习报告，直观展示孩子的进步轨迹和薄弱环节。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="interactive-card">
+                    <h4>现在注册</h4>
+                    <p>免费领取7天VIP会员体验</p>
+                    <a href="#" class="cta-btn" style="display: inline-block;">立即领取</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="faq">
+            <div class="container">
+                <div class="section-header">
+                    <h2>常见问题</h2>
+                </div>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">田田英语适合多大年龄的孩子？</div>
+                        <div class="faq-answer">田田英语主要针对3-12岁的儿童。我们的内容分为启蒙篇、进阶篇和高级篇，家长可以根据孩子的英语水平选择合适的阶段。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">完全零基础可以开始学习吗？</div>
+                        <div class="faq-answer">当然可以。我们的启蒙课程专为零基础设计，通过儿歌和简单动画，让孩子在听和看的过程中自然习得语言。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">会员包含哪些服务？</div>
+                        <div class="faq-answer">会员可以无限次观看所有视频课程、下载绘本音频、参与每日打卡活动以及获取学习报告分析。</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <h3>田田英语</h3>
+                    <p>致力于通过科技与内容创新，为全球儿童提供优质的英语教育资源，让每个孩子都能自信开口说英语。</p>
+                </div>
+                <div class="footer-links">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="#">品牌故事</a></li>
+                        <li><a href="#">师资团队</a></li>
+                        <li><a href="#">加入我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>帮助中心</h4>
+                    <ul>
+                        <li><a href="#">使用教程</a></li>
+                        <li><a href="#">会员政策</a></li>
+                        <li><a href="#">联系客服</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>关注我们</h4>
+                    <ul>
+                        <li><a href="#">微信公众号</a></li>
+                        <li><a href="#">家长交流群</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 田田英语 All Rights Reserved. 仅供演示使用。
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Accordion Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // Close other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+                                                  </html>
