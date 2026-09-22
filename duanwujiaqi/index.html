@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="端午假期天气一览 - 提供全国主要城市端午期间（6月22日-24日）的详细天气预报、气温趋势、降雨概率及出行建议，助您合理安排假期行程。">
+    <meta name="keywords" content="端午假期天气,端午节天气预报,端午出游,端午节天气趋势">
+    <title>端午假期天气一览 - 全国天气预报与出行指南</title>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #00a8cc;
+            --accent-color: #ff9800;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --bg-body: #f5f7fa;
+            --bg-card: #ffffff;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Layout Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 15px;
+            color: var(--text-dark);
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            bottom: 5px;
+            width: 5px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--bg-card);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--text-dark);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-cta {
+            background-color: var(--primary-color);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background-color: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Forecast Grid */
+        .forecast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .city-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .city-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .city-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .city-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .city-date {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .weather-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .weather-icon {
+            font-size: 3rem;
+        }
+
+        .temperature {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .weather-desc {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            text-transform: capitalize;
+        }
+
+        .weather-details {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .detail-item {
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Advice Section */
+        .advice-section {
+            background-color: #fff;
+            padding: 50px 0;
+            margin-bottom: 50px;
+            border-top: 1px solid #eee;
+        }
+
+        .advice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .advice-card {
+            background-color: #f8fbff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .advice-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .advice-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* Map Placeholder */
+        .map-container {
+            background-color: #e9ecef;
+            border-radius: var(--border-radius);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-placeholder-text {
+            background: rgba(255,255,255,0.8);
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 40px 0 20px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            color: #95a5a6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-wrapper {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 0;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                gap: 15px;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .forecast-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">
+                <span>🌤️</span> 气象通
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">首页</a></li>
+                    <li><a href="#">全国天气</a></li>
+                    <li><a href="#">旅游指数</a></li>
+                    <li><a href="#" class="nav-cta">历史数据</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="date-badge">2024年6月22日 - 6月24日</div>
+                <h1>端午假期天气一览</h1>
+                <p>今年端午假期期间，全国大部地区气温适宜，江南及华南地区多降雨，请注意防范降雨对出行的影响。</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- Main Forecast Section -->
+            <section>
+                <h2 class="section-title">重点城市天气预测</h2>
+                <div class="forecast-grid">
+                    
+                    <!-- City 1: Beijing -->
+                    <article class="city-card">
+                        <div class="city-header">
+                            <span class="city-name">北京</span>
+                            <span class="city-date">6月22日-24日</span>
+                        </div>
+                        <div class="weather-main">
+                            <div class="weather-icon">⛅</div>
+                            <div>
+                                <div class="temperature">24° ~ 30°</div>
+                                <div class="weather-desc">多云转晴</div>
+                            </div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="detail-item">
+                                <div class="detail-label">湿度</div>
+                                <div class="detail-value">45%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">风力</div>
+                                <div class="detail-value">3级</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">空气质量</div>
+                                <div class="detail-value">良</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- City 2: Shanghai -->
+                    <article class="city-card">
+                        <div class="city-header">
+                            <span class="city-name">上海</span>
+                            <span class="city-date">6月22日-24日</span>
+                        </div>
+                        <div class="weather-main">
+                            <div class="weather-icon">🌧️</div>
+                            <div>
+                                <div class="temperature">22° ~ 26°</div>
+                                <div class="weather-desc">小雨转中雨</div>
+                            </div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="detail-item">
+                                <div class="detail-label">湿度</div>
+                                <div class="detail-value">85%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">风力</div>
+                                <div class="detail-value">4-5级</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">降雨概率</div>
+                                <div class="detail-value">90%</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- City 3: Guangzhou -->
+                    <article class="city-card">
+                        <div class="city-header">
+                            <span class="city-name">广州</span>
+                            <span class="city-date">6月22日-24日</span>
+                        </div>
+                        <div class="weather-main">
+                            <div class="weather-icon">⛈️</div>
+                            <div>
+                                <div class="temperature">25° ~ 32°</div>
+                                <div class="weather-desc">雷阵雨</div>
+                            </div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="detail-item">
+                                <div class="detail-label">湿度</div>
+                                <div class="detail-value">80%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">风力</div>
+                                <div class="detail-value">3-4级</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">降雨概率</div>
+                                <div class="detail-value">70%</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- City 4: Chengdu -->
+                    <article class="city-card">
+                        <div class="city-header">
+                            <span class="city-name">成都</span>
+                            <span class="city-date">6月22日-24日</span>
+                        </div>
+                        <div class="weather-main">
+                            <div class="weather-icon">🌤️</div>
+                            <div>
+                                <div class="temperature">20° ~ 28°</div>
+                                <div class="weather-desc">晴间多云</div>
+                            </div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="detail-item">
+                                <div class="detail-label">湿度</div>
+                                <div class="detail-value">50%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">风力</div>
+                                <div class="detail-value">2级</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">空气质量</div>
+                                <div class="detail-value">优</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- City 5: Xi'an -->
+                    <article class="city-card">
+                        <div class="city-header">
+                            <span class="city-name">西安</span>
+                            <span class="city-date">6月22日-24日</span>
+                        </div>
+                        <div class="weather-main">
+                            <div class="weather-icon">☀️</div>
+                            <div>
+                                <div class="temperature">22° ~ 34°</div>
+                                <div class="weather-desc">晴朗</div>
+                            </div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="detail-item">
+                                <div class="detail-label">湿度</div>
+                                <div class="detail-value">30%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">风力</div>
+                                <div class="detail-value">3级</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">紫外线</div>
+                                <div class="detail-value">强</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- City 6: Hangzhou -->
+                    <article class="city-card">
+                        <div class="city-header">
+                            <span class="city-name">杭州</span>
+                            <span class="city-date">6月22日-24日</span>
+                        </div>
+                        <div class="weather-main">
+                            <div class="weather-icon">🌧️</div>
+                            <div>
+                                <div class="temperature">21° ~ 26°</div>
+                                <div class="weather-desc">阵雨</div>
+                            </div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="detail-item">
+                                <div class="detail-label">湿度</div>
+                                <div class="detail-value">78%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">风力</div>
+                                <div class="detail-value">4级</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">降雨概率</div>
+                                <div class="detail-value">60%</div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- Advice Section -->
+            <section class="advice-section">
+                <h2 class="section-title">出行建议与注意事项</h2>
+                <div class="advice-grid">
+                    <div class="advice-card">
+                        <h3>🌧️ 降雨防范</h3>
+                        <p>端午假期期间，长江中下游及华南地区多降雨过程。请随身携带雨具，驾车出行注意减速慢行，避免涉水行驶。</p>
+                    </div>
+                    <div class="advice-card">
+                        <h3>🌡️ 防暑降温</h3>
+                        <p>北方地区气温较高，紫外线较强。户外活动请做好防晒措施，及时补充水分，避免中暑。</p>
+                    </div>
+                    <div class="advice-card">
+                        <h3>🌿 节日习俗</h3>
+                        <p>吃粽子、挂艾草是端午传统。雨天湿气重，建议室内活动为主，注意饮食卫生，防止肠胃不适。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Map Placeholder -->
+            <section>
+                <h2 class="section-title">全国降雨分布图</h2>
+                <div class="map-container">
+                    <div class="map-placeholder-text">
+                        <p>此处为交互式地图区域</p>
+                        <p style="font-size: 0.8rem; margin-top: 5px;">(演示版：请关注官方气象APP获取实时动态)</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>气象通</h4>
+                    <p style="color: #bdc3c7; font-size: 0.9rem; line-height: 1.6;">
+                        致力于为用户提供最准确、及时的天气信息服务，让您的每一次出行都从容无忧。
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>快速导航</h4>
+                    <ul>
+                        <li><a href="#">全国实况</a></li>
+                        <li><a href="#">台风路径</a></li>
+                        <li><a href="#">空气质量</a></li>
+                        <li><a href="#">生活指数</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="#">服务条款</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">联系客服</a></li>
+                        <li><a href="#">免责声明</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2024 气象通服务网. All Rights Reserved. 数据来源：国家气象中心.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
