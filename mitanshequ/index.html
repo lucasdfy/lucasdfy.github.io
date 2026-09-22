@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>米坛社区-专业玩家交流与资源分享平台</title>
+    <meta name="description" content="米坛社区是一个专注于玩家交流、游戏攻略分享、硬件评测及数码资讯的综合性网络社区。提供热门游戏讨论、软件下载、技术问答及玩家互助服务。">
+    <meta name="keywords" content="米坛社区, 游戏论坛, 硬件评测, 攻略分享, 软件下载">
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --container-width: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--primary-color);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--text-main);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .nav-links a.active, .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 30px;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+
+        .hero-text h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 16px;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat-item h3 {
+            font-size: 28px;
+            color: var(--primary-color);
+        }
+
+        .stat-item p {
+            font-size: 14px;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            border: 4px solid rgba(255,255,255,0.1);
+        }
+
+        /* Main Content Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* Section Titles */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            bottom: 4px;
+            width: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .view-more {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Forum List */
+        .forum-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .forum-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .forum-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .forum-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #eff6ff;
+            color: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .forum-info {
+            flex: 1;
+        }
+
+        .forum-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        .forum-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .forum-meta {
+            font-size: 12px;
+            color: #94a3b8;
+            display: flex;
+            gap: 15px;
+        }
+
+        .forum-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .widget {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+        }
+
+        .widget-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background-color: #f1f5f9;
+            color: var(--text-secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .tag:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .hot-list li {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .hot-list li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .hot-list a {
+            font-size: 14px;
+            color: var(--text-main);
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .hot-list a:hover {
+            color: var(--primary-color);
+        }
+
+        .hot-list .num {
+            color: #ef4444;
+            font-weight: bold;
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        /* Guide Cards */
+        .guide-section {
+            margin-bottom: 50px;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .guide-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .guide-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .guide-img {
+            width: 100%;
+            height: 140px;
+            background-color: #e2e8f0;
+            object-fit: cover;
+        }
+
+        .guide-content {
+            padding: 15px;
+        }
+
+        .guide-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .guide-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background-color: white;
+            padding: 50px 0;
+            border-top: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+
+        .faq-question {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            font-size: 15px;
+            display: none;
+            padding-left: 10px;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-question::after {
+            content: '-';
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1e293b;
+            color: #94a3b8;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .guide-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                display: none;
+            }
+            .header-inner {
+                padding: 0 15px;
+            }
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                <span>米坛社区</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#" class="active">首页</a>
+                <a href="#">游戏专区</a>
+                <a href="#">硬件评测</a>
+                <a href="#">软件下载</a>
+                <a href="#">技术问答</a>
+                <a href="#">玩家互助</a>
+            </nav>
+            <div class="user-actions">
+                <a href="#" class="btn btn-outline">登录</a>
+                <a href="#" class="btn btn-primary">注册</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>汇聚玩家智慧，探索数字世界</h1>
+                <p>米坛社区致力于为科技爱好者和游戏玩家提供一个高质量的交流平台。无论你是追求极致性能的硬件发烧友，还是热衷于探索未知世界的游戏达人，这里都有你需要的资讯与伙伴。</p>
+                <div style="display: flex; gap: 15px;">
+                    <a href="#" class="btn btn-primary">加入讨论</a>
+                    <a href="#" class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">浏览最新资讯</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3>50W+</h3>
+                        <p>注册会员</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>100W+</h3>
+                        <p>帖子数量</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>500+</h3>
+                        <p>活跃版块</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://picsum.photos/seed/gaming/600/350" alt="米坛社区社区氛围展示">
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="main-grid">
+            <!-- Main Content Column -->
+            <section class="content-column">
+                <div class="section-header">
+                    <h2 class="section-title">热门讨论区</h2>
+                    <a href="#" class="view-more">查看全部 &raquo;</a>
+                </div>
+
+                <div class="forum-list">
+                    <a href="#" class="forum-item">
+                        <div class="forum-icon">🎮</div>
+                        <div class="forum-info">
+                            <h3 class="forum-name">主机游戏交流</h3>
+                            <p class="forum-desc">分享PS5、Xbox、Switch及PC游戏心得，讨论最新发售游戏。</p>
+                            <div class="forum-meta">
+                                <span>🔥 2.3k 今日发帖</span>
+                                <span>👥 15万 会员</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="forum-item">
+                        <div class="forum-icon">💻</div>
+                        <div class="forum-info">
+                            <h3 class="forum-name">硬件发烧友</h3>
+                            <p class="forum-desc">CPU、显卡、主板等DIY装机经验分享，性能跑分交流。</p>
+                            <div class="forum-meta">
+                                <span>🔥 1.8k 今日发帖</span>
+                                <span>👥 12万 会员</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="forum-item">
+                        <div class="forum-icon">📱</div>
+                        <div class="forum-info">
+                            <h3 class="forum-name">移动数码</h3>
+                            <p class="forum-desc">智能手机、平板、智能穿戴设备评测与使用技巧。</p>
+                            <div class="forum-meta">
+                                <span>🔥 3.1k 今日发帖</span>
+                                <span>👥 20万 会员</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="forum-item">
+                        <div class="forum-icon">⚙️</div>
+                        <div class="forum-info">
+                            <h3 class="forum-name">软件工具</h3>
+                            <p class="forum-desc">实用软件推荐、破解补丁、系统优化与安全防护讨论。</p>
+                            <div class="forum-meta">
+                                <span>🔥 980 今日发帖</span>
+                                <span>👥 8万 会员</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="forum-item">
+                        <div class="forum-icon">🎬</div>
+                        <div class="forum-info">
+                            <h3 class="forum-name">影视娱乐</h3>
+                            <p class="forum-desc">影视资源推荐、影评分析、动漫番剧讨论。</p>
+                            <div class="forum-meta">
+                                <span>🔥 1.5k 今日发帖</span>
+                                <span>👥 18万 会员</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="section-header" style="margin-top: 40px;">
+                    <h2 class="section-title">精选攻略</h2>
+                    <a href="#" class="view-more">查看更多 &raquo;</a>
+                </div>
+
+                <div class="guide-grid">
+                    <article class="guide-card">
+                        <img src="https://picsum.photos/seed/tech1/400/250" alt="显卡优化指南" class="guide-img">
+                        <div class="guide-content">
+                            <h3 class="guide-title">2024年显卡驱动优化全攻略</h3>
+                            <div class="guide-meta">发布于 2小时前 • 优化技巧</div>
+                        </div>
+                    </article>
+                    <article class="guide-card">
+                        <img src="https://picsum.photos/seed/tech2/400/250" alt="新手装机教程" class="guide-img">
+                        <div class="guide-content">
+                            <h3 class="guide-title">零基础装机：从硬件选择到系统安装</h3>
+                            <div class="guide-meta">发布于 5小时前 • 硬件DIY</div>
+                        </div>
+                    </article>
+                    <article class="guide-card">
+                        <img src="https://picsum.photos/seed/tech3/400/250" alt="Steam隐藏游戏" class="guide-img">
+                        <div class="guide-content">
+                            <h3 class="guide-title">Steam平台隐藏游戏盘点与获取方法</h3>
+                            <div class="guide-meta">发布于 昨天 • 软件工具</div>
+                        </div>
+                    </article>
+                    <article class="guide-card">
+                        <img src="https://picsum.photos/seed/tech4/400/250" alt="智能家居" class="guide-img">
+                        <div class="guide-content">
+                            <h3 class="guide-title">打造你的智能家居：全屋智能方案推荐</h3>
+                            <div class="guide-meta">发布于 2天前 • 数码生活</div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Sidebar Column -->
+            <aside class="sidebar">
+                <div class="widget">
+                    <h3 class="widget-title">热门标签</h3>
+                    <div class="tag-cloud">
+                        <a href="#" class="tag">显卡</a>
+                        <a href="#" class="tag">游戏</a>
+                        <a href="#" class="tag">装机</a>
+                        <a href="#" class="tag">数码</a>
+                        <a href="#" class="tag">评测</a>
+                        <a href="#" class="tag">资源</a>
+                        <a href="#" class="tag">教程</a>
+                        <a href="#" class="tag">硬件</a>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <h3 class="widget-title">本周热议</h3>
+                    <ul class="hot-list">
+                        <li>
+                            <a href="#">
+                                <span class="num">1</span>
+                                RTX 5090 规格泄露，性能提升惊人？
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="num">2</span>
+                                索尼PS5 Pro 值得现在入手吗？
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="num">3</span>
+                                求推荐几款好用的开源翻译软件
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="num">4</span>
+                                各位大佬，这套配置有什么问题？
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="num">5</span>
+                                2024年最值得期待的独立游戏
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="widget">
+                    <h3 class="widget-title">社区公告</h3>
+                    <div style="font-size: 14px; color: var(--text-main);">
+                        <p style="margin-bottom: 10px;">📢 <strong>活动通知：</strong></p>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 5px;">本站将于本周五进行服务器维护，预计停机2小时。</p>
+                        <p style="font-size: 13px; color: var(--text-secondary);">📢 <strong>新版规发布：</strong> 请大家阅读《米坛社区用户行为规范》。</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <section class="faq-section">
+            <div class="container faq-container">
+                <div class="section-header" style="justify-content: center; border-bottom: none; margin-bottom: 30px;">
+                    <h2 class="section-title">常见问题</h2>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">如何加入米坛社区？</div>
+                    <div class="faq-answer">您只需点击页面右上角的“注册”按钮，填写用户名、邮箱和密码即可免费注册成为会员。注册过程简单快捷。</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">发帖需要什么条件？</div>
+                    <div class="faq-answer">注册成功后，您即可在相关版块发帖。为了维护社区环境，发帖前请仔细阅读版规，禁止发布违规内容。</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">社区提供的软件资源安全吗？</div>
+                    <div class="faq-answer">米坛社区提供的所有软件资源均经过人工审核，我们建议用户使用杀毒软件扫描下载，确保设备安全。</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">如何联系版主或管理员？</div>
+                    <div class="faq-answer">您可以在社区底部找到客服联系方式，或通过私信功能直接联系在线管理员。</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom: 20px;">
+                        <span style="color: white;">米坛社区</span>
+                    </div>
+                    <p style="font-size: 14px; line-height: 1.8; max-width: 300px;">
+                        米坛社区是一个致力于为科技爱好者和游戏玩家提供优质交流环境的平台。我们尊重每一位用户的分享精神，共同构建和谐、健康的网络社区。
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="#">社区简介</a></li>
+                        <li><a href="#">加入我们</a></li>
+                        <li><a href="#">联系方式</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>帮助中心</h4>
+                    <ul>
+                        <li><a href="#">新手指南</a></li>
+                        <li><a href="#">版务规则</a></li>
+                        <li><a href="#">积分商城</a></li>
+                        <li><a href="#">反馈建议</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>关注我们</h4>
+                    <ul>
+                        <li><a href="#">微信公众号</a></li>
+                        <li><a href="#">新浪微博</a></li>
+                        <li><a href="#">QQ交流群</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 米坛社区 版权所有. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple FAQ Toggle Logic
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+  </html>
